@@ -5,10 +5,14 @@ public class Balloon : MonoBehaviour
 {
     [SerializeField] float BalloonSpeed;
     AudioSource audioSource;
+    SpriteRenderer spriteRenderer;
+    Collider2D collider2d;
 
     private void Awake()
     {
-        audioSource = GetComponent<AudioSource>();        
+        audioSource = GetComponent<AudioSource>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        collider2d = GetComponent<Collider2D>();
     }
 
     private void Update()
@@ -24,6 +28,8 @@ public class Balloon : MonoBehaviour
     IEnumerator CollisionEvent()
     {
         audioSource.Play();
+        spriteRenderer.enabled = false;
+        collider2d.enabled = false;
         yield return new WaitForSeconds(audioSource.clip.length);
         Destroy(gameObject);
     }
